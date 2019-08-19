@@ -21,6 +21,13 @@ server.use((req, res, next) => {
   console.timeEnd('Request');
 });
 
+function checkUserExist(req, res, next) {
+  if (!req.body.name) {
+    return res.status(400).json({ error: 'Username is required' });
+  }
+  return next();
+}
+
 //return all users
 server.get('/users', (req, res) => {
   res.json(users);
@@ -45,7 +52,7 @@ server.get('/users/:index', (req, res) => {
 });
 
 //POST - create new user (push to array)
-server.post('/users', (req, res) => {
+server.post('/users', checkUserExist, (req, res) => {
   const { name } = req.body;
 
   users.push(name);
@@ -54,7 +61,7 @@ server.post('/users', (req, res) => {
 });
 
 //PUT - edit one user
-server.put('/users/:index', (req, res) => {
+server.put('/users/:index', checkUserExist, (req, res) => {
   const { index } = req.params;
   const { name } = req.body;
 
