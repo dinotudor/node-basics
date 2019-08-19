@@ -44,4 +44,15 @@ server.post("/users", (req, res) => {
   return res.json(users);
 });
 
+//PUT - edit one user
+server.put("/users/:index", (req, res) => {
+  const { index } = req.params;
+  const { name } = req.body;
+
+  users[index] = name;
+
+  console.log("USERS", users);
+  return res.json(users);
+});
+
 server.listen(3000);
