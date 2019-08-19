@@ -6,7 +6,14 @@ const server = express();
 // Route Params = users/id
 // Request Body = { "name": "john", "email": "john@doe.com" }
 
+//CRUD operations: Create, Read, Update, Delete
+
 const users = ["John", "Olivia", "Dino"];
+
+//return all users
+server.get("/users", (req, res) => {
+  res.json(users);
+});
 
 //QUERY
 server.get("/users", (req, res) => {
